@@ -13,6 +13,12 @@ const store = () => {
   localStorage.setItem('tasks', JSON.stringify(listName));
 };
 
+const reorder = () => {
+  listName.forEach((item, index) => {
+    item.index = index + 1;
+  });
+};
+
 // adding task
 const addTask = (task) => {
   const data = {
@@ -36,9 +42,7 @@ items.addEventListener('click', (e) => {
     const button = e.target.parentNode;
     const index = parseInt(button.id.replace('delete', ''), 10);
     listName.splice(index, 1);
-    listName.forEach((item, index) => {
-      item.index = index + 1;
-    });
+    reorder();
     store();
     displayTask();
   }
@@ -53,9 +57,7 @@ clear.addEventListener('click', (e) => {
   e.preventDefault();
   listName = JSON.parse(localStorage.getItem('tasks')) || [];
   listName = listName.filter((item) => item.completed === false);
-  listName.forEach((item, index) => {
-    item.index = index + 1;
-  });
+  reorder();
   store();
   displayTask();
 });

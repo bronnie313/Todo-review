@@ -2,7 +2,6 @@ import initList from './initList.js';
 
 const task = document.getElementById('task');
 const items = document.getElementById('items');
-// const currentUrl = window.location.href;
 
 // make task editable
 const makeTaskEditable = () => {
