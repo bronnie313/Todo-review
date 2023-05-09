@@ -1,10 +1,12 @@
+import initList from './initList.js';
+
 const task = document.getElementById('task');
 const items = document.getElementById('items');
 const currentUrl = window.location.href;
 
 // make task editable
 const makeTaskEditable = () => {
-  const listName = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : [];
+  const listName = initList();
   const taskAreas = document.querySelectorAll('.area');
   taskAreas.forEach((taskArea, index) => {
     taskArea.addEventListener('blur', () => {
@@ -25,9 +27,9 @@ const makeTaskEditable = () => {
 
 // display task
 const displayTask = () => {
-  const listName = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : [];
+  const listName = initList();
   items.innerHTML = '';
-  for (let i = 0; i < listName.length; i += 1) {
+  listName.forEach((_item, i) => {
     const isChecked = listName[i].completed ? 'checked' : '';
     items.innerHTML += `
         <div class="to-do-item">
@@ -37,7 +39,7 @@ const displayTask = () => {
         </div>
       `;
     task.value = '';
-  }
+  });
   makeTaskEditable();
 
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
