@@ -1,4 +1,5 @@
 import initList from './initList.js';
+import store from './store.js';
 
 const makeTaskEditable = () => {
   const listName = initList();
@@ -11,7 +12,7 @@ const makeTaskEditable = () => {
       if (e.keyCode === 13) {
         e.preventDefault();
         listName[index].text = taskArea.innerText;
-        localStorage.setItem('tasks', JSON.stringify(listName));
+        store(listName);
         taskArea.blur();
         window.location.reload();
       }
