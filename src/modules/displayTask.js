@@ -1,5 +1,6 @@
 import initList from './initList.js';
 import makeTaskEditable from './edit.js';
+import store from './store.js';
 
 const task = document.getElementById('task');
 const items = document.getElementById('items');
@@ -25,7 +26,7 @@ const displayTask = () => {
   checkboxes.forEach((checkbox, index) => {
     checkbox.addEventListener('change', (event) => {
       listName[index].completed = event.target.checked;
-      localStorage.setItem('tasks', JSON.stringify(listName));
+      store(listName);
     });
   });
 };
