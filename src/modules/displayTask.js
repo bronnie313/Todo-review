@@ -1,28 +1,8 @@
 import initList from './initList.js';
+import makeTaskEditable from './edit.js';
 
 const task = document.getElementById('task');
 const items = document.getElementById('items');
-
-// make task editable
-const makeTaskEditable = () => {
-  const listName = initList();
-  const taskAreas = document.querySelectorAll('.area');
-  taskAreas.forEach((taskArea, index) => {
-    taskArea.addEventListener('blur', () => {
-      listName[index].text = taskArea.innerText;
-      localStorage.setItem('tasks', JSON.stringify(listName));
-    });
-    taskArea.addEventListener('keydown', (e) => {
-      if (e.keyCode === 13) {
-        e.preventDefault();
-        listName[index].text = taskArea.innerText;
-        localStorage.setItem('tasks', JSON.stringify(listName));
-        taskArea.blur();
-        window.location.reload();
-      }
-    });
-  });
-};
 
 // display task
 const displayTask = () => {

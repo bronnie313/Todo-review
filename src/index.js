@@ -1,5 +1,6 @@
 import './style.css';
 import initList from './modules/initList.js';
+import store from './modules/store.js';
 import displayTask from './modules/displayTask.js';
 
 const form = document.getElementById('form');
@@ -8,10 +9,6 @@ const items = document.getElementById('items');
 const clear = document.getElementById('clear');
 
 let listName = initList();
-
-const store = () => {
-  localStorage.setItem('tasks', JSON.stringify(listName));
-};
 
 const reorder = () => {
   listName.forEach((item, index) => {
@@ -27,7 +24,7 @@ const addTask = (task) => {
     index: listName.length + 1,
   };
   listName.push(data);
-  store();
+  store(listName);
 };
 
 form.addEventListener('submit', (e) => {
@@ -43,7 +40,7 @@ items.addEventListener('click', (e) => {
     const index = parseInt(button.id.replace('delete', ''), 10);
     listName.splice(index, 1);
     reorder();
-    store();
+    store(listName);
     displayTask();
   }
 });
@@ -58,6 +55,6 @@ clear.addEventListener('click', (e) => {
   listName = JSON.parse(localStorage.getItem('tasks')) || [];
   listName = listName.filter((item) => item.completed === false);
   reorder();
-  store();
+  store(listName);
   displayTask();
 });
