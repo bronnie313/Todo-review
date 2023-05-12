@@ -2,6 +2,7 @@ import './style.css';
 import initList from './modules/initList.js';
 import store from './modules/store.js';
 import reorder from './modules/reorder.js';
+import makeTaskEditable from './modules/edit.js';
 import displayTask from './modules/displayTask.js';
 
 const form = document.getElementById('form');
@@ -19,21 +20,25 @@ const addTask = (task) => {
     index: listName.length + 1,
   };
   listName.push(data);
-  store(listName);
 };
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   addTask(task.value);
+  store(listName);
   displayTask();
 });
 
 // deleting task
+const removeTask = (index) => {
+  listName.splice(index, 1);
+};
+
 items.addEventListener('click', (e) => {
   if (e.target.tagName.toLowerCase() === 'i') {
     const button = e.target.parentNode;
     const index = parseInt(button.id.replace('delete', ''), 10);
-    listName.splice(index, 1);
+    removeTask(index);
     reorder(listName);
     store(listName);
     displayTask();
@@ -43,6 +48,7 @@ items.addEventListener('click', (e) => {
 window.onload = () => {
   initList();
   displayTask();
+  makeTaskEditable();
 };
 
 clear.addEventListener('click', (e) => {
