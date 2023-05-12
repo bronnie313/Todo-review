@@ -7,6 +7,7 @@ const makeTaskEditable = () => {
   taskAreas.forEach((taskArea, index) => {
     taskArea.addEventListener('blur', () => {
       listName[index].text = taskArea.innerText;
+      store(listName);
     });
     taskArea.addEventListener('keydown', (e) => {
       if (e.keyCode === 13) {
