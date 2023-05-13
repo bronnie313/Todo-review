@@ -51,10 +51,14 @@ window.onload = () => {
   makeTaskEditable();
 };
 
-clear.addEventListener('click', (e) => {
-  e.preventDefault();
+const clearCompleted = () => {
   listName = JSON.parse(localStorage.getItem('tasks')) || [];
   listName = listName.filter((item) => item.completed === false);
+};
+
+clear.addEventListener('click', (e) => {
+  e.preventDefault();
+  clearCompleted();
   reorder(listName);
   store(listName);
   displayTask();
